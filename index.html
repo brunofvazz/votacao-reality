@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votação Reality</title>
+  <style>
+    body { font-family: Arial; background: #fafafa; text-align: center; margin-top: 80px; }
+    h1 { color: #333; }
+    .opcao { margin: 10px; }
+    button { padding: 10px 20px; border: none; background: #ff9800; color: white; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #e68900; }
+  </style>
+</head>
+<body>
+  <h1>Quem deve ficar no Reality?</h1>
+
+  <form id="voteForm">
+    <div class="opcao">
+      <input type="radio" name="voto" value="Amanda" required> Amanda
+    </div>
+    <div class="opcao">
+      <input type="radio" name="voto" value="Bianca"> Bianca
+    </div>
+    <div class="opcao">
+      <input type="radio" name="voto" value="Miguel"> Miguel
+    </div>
+
+    <button type="submit">Votar</button>
+  </form>
+
+  <p id="mensagem"></p>
+
+  <script>
+    document.getElementById('voteForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const voto = document.querySelector('input[name="voto"]:checked').value;
+
+      const resposta = await fetch(https://script.google.com/macros/s/AKfycbxHySqrsuVpgvj9da9LY3NYj6_oUxE9bI97LKV6yxO9HRd-HcFDV4Jag69Ca2zywYuO/exec", {
+        method: "POST",
+        body: JSON.stringify({ voto }),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      if (resposta.ok) {
+        document.getElementById('mensagem').innerText = "✅ Voto registrado com sucesso!";
+        e.target.reset();
+      } else {
+        document.getElementById('mensagem').innerText = "❌ Erro ao enviar voto.";
+      }
+    });
+  </script>
+</body>
+</html>
